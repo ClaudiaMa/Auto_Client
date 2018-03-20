@@ -31,7 +31,7 @@ public class Main {
 
     public Main() {
         Autoverleih autoverleih = new Autoverleih();
-        this.ws = autoverleih.getAutoverleihWebservicePort();
+        this.ws = autoverleih.getAutoverleihSoapWebservicePort();
         this.fkey = new BufferedReader(new InputStreamReader(System.in));
     }
 
@@ -93,25 +93,25 @@ public class Main {
         System.out.println("================");
         System.out.println();
 
-        System.out.println("Vorname: ");
+        System.out.print("Vorname: ");
         String vorname = this.fkey.readLine();
 
-        System.out.println("Nachname: ");
+        System.out.print("Nachname: ");
         String nachname = this.fkey.readLine();
 
-        System.out.println("Straße: ");
+        System.out.print("Straße: ");
         String strasse = this.fkey.readLine();
 
-        System.out.println("Hausnummer: ");
+        System.out.print("Hausnummer: ");
         String hausnummer = this.fkey.readLine();
 
-        System.out.println("Postleitzahl: ");
+        System.out.print("Postleitzahl: ");
         String plz = this.fkey.readLine();
 
-        System.out.println("Ort: ");
+        System.out.print("Ort: ");
         String ort = this.fkey.readLine();
 
-        System.out.println("Land: ");
+        System.out.print("Land: ");
         String land = this.fkey.readLine();
 
         System.out.println();
@@ -126,7 +126,7 @@ public class Main {
         kunde.setLand(land);
 
         Holder<Kunde> hKunde = new Holder<>(kunde);
-        ws.createNewKunde(hKunde);
+        this.ws.createNewKunde(hKunde);
 
         System.out.println("Kunde mit der ID " + hKunde.value.getId() + " wurde angelegt.");
         System.out.println();
@@ -139,13 +139,13 @@ public class Main {
         System.out.println("================");
         System.out.println();
 
-        System.out.println("Hersteller :");
+        System.out.print("Hersteller :");
         String hersteller = this.fkey.readLine();
 
-        System.out.println("Modell: ");
+        System.out.print("Modell: ");
         String modell = this.fkey.readLine();
 
-        System.out.println("Baujahr: ");
+        System.out.print("Baujahr: ");
         String baujahr = this.fkey.readLine();
 
         System.out.println();
@@ -156,7 +156,7 @@ public class Main {
         fahrzeug.setBaujahr(baujahr);
 
         Holder<Fahrzeug> hFahrzeug = new Holder<>(fahrzeug);
-        ws.createNewFahrzeug(hFahrzeug);
+        this.ws.createNewFahrzeug(hFahrzeug);
 
         System.out.println("Fahrzeug mit der ID " + hFahrzeug.value.getId() + " wurde angelegt.");
         System.out.println();
