@@ -1,0 +1,172 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.3.2-b608 (trunk-7979; 2015-01-21T12:50:19+0000) JAXWS-RI/2.2.11-b150120.1832 JAXWS-API/2.2.12 JAXB-RI/2.2.12-b141219.1637 JAXB-API/2.2.13-b141020.1521 svn-revision#unknown. --><xs:schema xmlns:tns="http://soap.auto/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://soap.auto/">
+
+<xs:element name="NotAvailableException" type="tns:NotAvailableException"/>
+
+<xs:element name="createNewFahrzeug" type="tns:createNewFahrzeug"/>
+
+<xs:element name="createNewFahrzeugResponse" type="tns:createNewFahrzeugResponse"/>
+
+<xs:element name="createNewKunde" type="tns:createNewKunde"/>
+
+<xs:element name="createNewKundeResponse" type="tns:createNewKundeResponse"/>
+
+<xs:element name="createNewLeihvertrag" type="tns:createNewLeihvertrag"/>
+
+<xs:element name="createNewLeihvertragResponse" type="tns:createNewLeihvertragResponse"/>
+
+<xs:element name="fahrzeugAuflisten" type="tns:fahrzeugAuflisten"/>
+
+<xs:element name="fahrzeugAuflistenResponse" type="tns:fahrzeugAuflistenResponse"/>
+
+<xs:element name="findAllLeihvertraege" type="tns:findAllLeihvertraege"/>
+
+<xs:element name="findAllLeihvertraegeResponse" type="tns:findAllLeihvertraegeResponse"/>
+
+<xs:element name="findFahrzeugById" type="tns:findFahrzeugById"/>
+
+<xs:element name="findFahrzeugByIdResponse" type="tns:findFahrzeugByIdResponse"/>
+
+<xs:element name="findKundeById" type="tns:findKundeById"/>
+
+<xs:element name="findKundeByIdResponse" type="tns:findKundeByIdResponse"/>
+
+<xs:element name="leihvertragAuflisten" type="tns:leihvertragAuflisten"/>
+
+<xs:element name="leihvertragAuflistenResponse" type="tns:leihvertragAuflistenResponse"/>
+
+<xs:complexType name="findAllLeihvertraege">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="findAllLeihvertraegeResponse">
+<xs:sequence>
+<xs:element name="leihvertrag" type="tns:leihvertrag" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="leihvertrag">
+<xs:sequence>
+<xs:element name="beginndatum" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="enddatum" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="fahrzeugid" type="xs:long"/>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="kunde" type="tns:kunde" minOccurs="0"/>
+<xs:element name="kundenid" type="xs:long"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="kunde">
+<xs:sequence>
+<xs:element name="hausnummer" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="land" type="xs:string" minOccurs="0"/>
+<xs:element name="leihverträge" type="tns:leihvertrag" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="nachname" type="xs:string" minOccurs="0"/>
+<xs:element name="ort" type="xs:string" minOccurs="0"/>
+<xs:element name="plz" type="xs:string" minOccurs="0"/>
+<xs:element name="strasse" type="xs:string" minOccurs="0"/>
+<xs:element name="vorname" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findKundeById">
+<xs:sequence>
+<xs:element name="kundenID" type="xs:long" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findKundeByIdResponse">
+<xs:sequence>
+<xs:element name="kunde" type="tns:kunde" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findFahrzeugById">
+<xs:sequence>
+<xs:element name="fahrzeugID" type="xs:long" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findFahrzeugByIdResponse">
+<xs:sequence>
+<xs:element name="fahrzeug" type="tns:fahrzeug" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="fahrzeug">
+<xs:sequence>
+<xs:element name="baujahr" type="xs:string" minOccurs="0"/>
+<xs:element name="hersteller" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:long"/>
+<xs:element name="leihverträge" type="tns:leihvertrag" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="modell" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="fahrzeugAuflisten">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="fahrzeugAuflistenResponse">
+<xs:sequence>
+<xs:element name="fahrzeug" type="tns:fahrzeug" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createNewFahrzeug">
+<xs:sequence>
+<xs:element name="fahrzeug" type="tns:fahrzeug" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createNewFahrzeugResponse">
+<xs:sequence>
+<xs:element name="fahrzeug" type="tns:fahrzeug" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createNewLeihvertrag">
+<xs:sequence>
+<xs:element name="kunde" type="tns:kunde" minOccurs="0"/>
+<xs:element name="fahrzeug" type="tns:fahrzeug" minOccurs="0"/>
+<xs:element name="beginnzeit" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="endzeit" type="xs:dateTime" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createNewLeihvertragResponse">
+<xs:sequence>
+<xs:element name="leihvertrag" type="tns:leihvertrag" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="NotAvailableException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="leihvertragAuflisten">
+<xs:sequence>
+<xs:element name="kunde" type="tns:kunde" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="leihvertragAuflistenResponse">
+<xs:sequence>
+<xs:element name="leihvertrag" type="tns:leihvertrag" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createNewKunde">
+<xs:sequence>
+<xs:element name="kunde" type="tns:kunde" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createNewKundeResponse">
+<xs:sequence>
+<xs:element name="kunde" type="tns:kunde" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
