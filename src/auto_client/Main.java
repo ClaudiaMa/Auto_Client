@@ -27,7 +27,7 @@ public class Main {
     public static void main(String[] args) throws IOException, DatatypeConfigurationException, NotAvailableException_Exception {
         Main main = new Main();
         main.runMainMenu();
-    }    
+    }
 
     public Main() {
         Autoverleih autoverleih = new Autoverleih();
@@ -40,11 +40,10 @@ public class Main {
         System.setProperty("com.sun.xml.internal.ws.transport.http.client.HttpTransportPipe.dump", "true");
         System.setProperty("com.sun.xml.ws.transport.http.HttpAdapter.dump", "true");
         System.setProperty("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump", "true");
-    
+
         System.out.println("Fahrzeugverleih");
-        
+
         // Bild
-        
         boolean quit = false;
 
         while (!quit) {
@@ -116,7 +115,7 @@ public class Main {
         String land = this.fkey.readLine();
 
         System.out.println();
-        
+
         Kunde kunde = new Kunde();
         kunde.setVorname(vorname);
         kunde.setNachname(nachname);
@@ -131,7 +130,7 @@ public class Main {
 
         System.out.println("Kunde mit der ID " + hKunde.value.getId() + " wurde angelegt.");
         System.out.println();
-        
+
     }
 
     public void fahrzeugAnlegen() throws IOException, DatatypeConfigurationException {
@@ -150,7 +149,7 @@ public class Main {
         String baujahr = this.fkey.readLine();
 
         System.out.println();
-        
+
         Fahrzeug fahrzeug = new Fahrzeug();
         fahrzeug.setHersteller(hersteller);
         fahrzeug.setModell(modell);
@@ -158,7 +157,7 @@ public class Main {
 
         Holder<Fahrzeug> hFahrzeug = new Holder<>(fahrzeug);
         ws.createNewFahrzeug(hFahrzeug);
-        
+
         System.out.println("Fahrzeug mit der ID " + hFahrzeug.value.getId() + " wurde angelegt.");
         System.out.println();
 
@@ -169,61 +168,67 @@ public class Main {
         System.out.println("Fahrzeug ausleihen");
         System.out.println("================");
         System.out.println();
-        
+
         System.out.println("Folgende Fahzeuge stehen zur Verfügung:");
-        
+
         List<Fahrzeug> alleFahrzeuge = ws.fahrzeugAuflisten();
-        
-        for (Fahrzeug fahrzeug: alleFahrzeuge) {
+
+        for (Fahrzeug fahrzeug : alleFahrzeuge) {
             System.out.print(fahrzeug.getHersteller());
             System.out.print(" " + fahrzeug.getModell() + ", Baujahr");
             System.out.print(" " + fahrzeug.getBaujahr() + ", ID");
             System.out.print(" " + fahrzeug.getId());
-            System.out.println();   
+            System.out.println();
         }
-        
+
         System.out.print("Kundennummer:");
         Long kundeId = Long.parseLong(this.fkey.readLine());
         Kunde kunde = ws.findKundeById(kundeId);
-        
+
         System.out.print("Fahrzeug-ID:");
         Long fahrzeugId = Long.parseLong(this.fkey.readLine());
         Fahrzeug fahrzeug = ws.findFahrzeugById(fahrzeugId);
-          
-              
+
         System.out.print("Abholung am (yyyy-mm-dd):");
         String beginndatumVon = this.fkey.readLine();
         DatatypeFactory dtf = DatatypeFactory.newInstance();
         XMLGregorianCalendar beginndatum = dtf.newXMLGregorianCalendar(beginndatumVon);
-        
+
         System.out.print("Rückgabe am (yyyy-mm-dd):");
         String enddatumBis = this.fkey.readLine();
         DatatypeFactory dtf2 = DatatypeFactory.newInstance();
         XMLGregorianCalendar enddatum = dtf2.newXMLGregorianCalendar(enddatumBis);
-        
-        Holder<Leihvertrag> hLeihvertrag = new Holder<> (ws.createNewLeihvertrag(kunde, fahrzeug, beginndatum, enddatum));
-        
+
+        Holder<Leihvertrag> hLeihvertrag = new Holder<>(ws.createNewLeihvertrag(kunde, fahrzeug, beginndatum, enddatum));
+
         System.out.println("Alles klar! Leihvertrag mit der ID " + hLeihvertrag.value.getId() + " wurde angelegt.");
 
     }
 
     public void leihvertraegeAuflisten() throws IOException, DatatypeConfigurationException {
-        
+
         System.out.println("================");
         System.out.println("Leihverträge auflisten");
         System.out.println("================");
         System.out.println();
+
+        System.out.print("Kundennummer:");
+        Long kundeId = Long.parseLong(this.fkey.readLine());
+        Kunde kunde = ws.findKundeById(kundeId);
+
+        System.out.println();
+        System.out.println("================");
         System.out.println("Folgende Leihverträge liegen vor:");
+        System.out.println("================");
         System.out.println();
 
-        List<Leihvertrag> leihvertraglist = this.ws.findAllLeihvertraege();
+        List<Leihvertrag> leihvertraglist = this.ws.leihvertragAuflisten(kunde);
 
         int counter = 0;
 
         for (Leihvertrag leihvertrag : leihvertraglist) {
             Fahrzeug fahrzeug = ws.findFahrzeugById(leihvertrag.getFahrzeugid());
-            Kunde kunde = ws.findKundeById(leihvertrag.getKundenid());
-
+           
             System.out.println(++counter + ".)");
             System.out.println("  Fahrzeug: " + fahrzeug.getHersteller() + " " + fahrzeug.getModell() + ", Baujahr " + fahrzeug.getBaujahr());
             System.out.println("  Ausleihende Person: " + kunde.getVorname() + " " + kunde.getNachname());
